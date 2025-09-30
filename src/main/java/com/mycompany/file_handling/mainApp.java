@@ -8,9 +8,9 @@ package com.mycompany.file_handling;
  *
  * @author MAGOBONGO SINAKO
  */
-public class File_handling {
+public class mainApp {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+ 
     }
 }
