@@ -7,7 +7,7 @@
  *
  * @author MAGOBONGO SINAKO
  */
-package org.smartfile;
+
 
 import java.nio.file.Path;
 
