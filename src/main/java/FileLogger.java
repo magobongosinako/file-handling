@@ -7,6 +7,6 @@
  *
  * @author MAGOBONGO SINAKO
  */
-public class Classifier {
+public class FileLogger {
     
 }

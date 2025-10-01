@@ -7,6 +7,6 @@
  *
  * @author MAGOBONGO SINAKO
  */
-public class FileIOManager {
+public class OrganizationRule {
     
 }
