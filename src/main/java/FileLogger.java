@@ -19,6 +19,8 @@ import java.time.LocalDateTime;
  * Logs operations performed by the system.
  * Appends to "organizer.log".
  */
+package com.mycompany.file_handling;
+
 public class FileLogger {
     private final String logFile = "organizer.log";
 
