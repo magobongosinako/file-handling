@@ -7,7 +7,7 @@
  *
  * @author MAGOBONGO SINAKO
  */
-
+package com.mycompany.file_handling;
 
 public class OrganizationRule {
     public String classify(FileMeta meta) {

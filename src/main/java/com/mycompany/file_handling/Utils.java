@@ -7,6 +7,7 @@
  *
  * @author MAGOBONGO SINAKO
  */
+package com.mycompany.file_handling;
 
 import java.io.IOException;
 import java.nio.file.*;

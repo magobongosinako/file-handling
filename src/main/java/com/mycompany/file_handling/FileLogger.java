@@ -8,7 +8,7 @@
  * @author MAGOBONGO SINAKO
  */
 
-
+package com.mycompany.file_handling;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
