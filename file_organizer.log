@@ -1,3 +1,38 @@
 [2025-10-05-14 : 52 :20] FileOrganizer initialized for: ./files
 [2025-10-05-14 : 52 :20] File organizer Log has Started
 [2025-10-05-14 : 52 :20] FileOrganizer  is initialized for./files
+[2025-10-05-15 : 47 :34] FileOrganizer initialized for: ./files
+[2025-10-05-15 : 47 :34] File organizer Log has Started
+[2025-10-05-15 : 47 :34] FileOrganizer  is initialized for./files
+[2025-10-05-15 : 48 :20] Current Organization Rules
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.jpg', category='images'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.jpeg', category='images'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.png', category='images'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.gif', category='images'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.bmp', category='images'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.pdf', category='documents'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.rtf', category='documents'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.doc', category='documents'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.docx', category='documents'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.txt', category='documents'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.mp4', category='vedios'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.avi', category='vedios'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.mov', category='vedios'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.wmv', category='vedios'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.mp3', category='audio'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.wav', category='audio'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.aac', category='audio'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.m4a', category='audio'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.zip', category='archives'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.rar', category='archives'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.7z', category='archives'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.java', category='code'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.py', category='code'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.js', category='code'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.html', category='code'}
+[2025-10-05-15 : 48 :20] OrganizationRule{fileType='.css', category='code'}
+[2025-10-05-15 : 48 :42] File organization is starting:(Dry Run )
+[2025-10-05-15 : 48 :42] Organization Summary(Dry Run)Files Moved: 0Files skipped: 0Errors: 0
+[2025-10-05 20:47:14] FileOrganizer initialized for: ./files
+[2025-10-05 20:47:14] File organizer Log has Started
+[2025-10-05 20:47:14] FileOrganizer  is initialized for./files
