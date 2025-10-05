@@ -10,25 +10,128 @@
 
 package com.mycompany.file_handling;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
 
-/**
- * Logs operations performed by the system.
- * Appends each action to "organizer.log".
- */
-public class FileLogger {
-    private final String logFile = "organizer.log";
+import java.text.SimpleDateFormat;
+import java.io.*;
+import java.util.*;
 
-    public void log(String action, String src, String dest) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFile, true))) {
-            String line = LocalDateTime.now() + " | " + action + " | " + src + " -> " + dest;
-            writer.write(line);
-            writer.newLine();
-        } catch (IOException e) {
-            System.err.println("Failed to write log: " + e.getMessage());
+public class FileLogger implements AutoCloseable {
+  
+    
+private String logFilePath;
+private FileWriter writer;
+private List<String> logHistory;
+
+public FileLogger(String logFilePath){
+    this.logFilePath = logFilePath;
+    this.logHistory = new ArrayList<>();
+        
+    initializeLogger();
+}
+ private void initializeLogger(){
+     try{
+        
+    // Creating the log file // 
+         File logFile = new File(logFilePath);
+        File parentDir = logFile.getParentFile();
+        if (parentDir != null && !parentDir.exists()){
+          parentDir.mkdirs();  
+        }
+      
+       if(!logFile.exists()){
+       
+           // creating parent directories if needed//
+           
+           logFile.createNewFile();
+           
+       }
+       this.writer = new FileWriter(logFile, true);
+       logHistory.add("FileLogger initialized " + getCurrentTime());
+       
+       
+     }catch(Exception e){
+         System.out.println("Error initializing FileLogger : " + e.getMessage());
+         
+         
+     }
+     
+ }   
+ public void log(String message){
+     String timestamp = getCurrentTime();
+     String logEntry = "[" + timestamp + "] " + message;
+     // add to history//
+     logHistory.add(logEntry);
+     //write to the file//
+     try{
+       if (writer != null){
+           writer.write(logEntry + "\n");
+           writer.flush();//It ensures immediate writting//
+           
+           
+           
+       }  
+         
+         
+     }catch(IOException e){
+     System.out.println("Error writting to log File" + e.getMessage());
+     
+     
+ }
+     // after print to console //
+     System.out.println(logEntry);
+     
+ }
+ public List<String> getLogHistory(){
+     
+     return new ArrayList<>(logHistory);//returning a copy to stop external modification//
+      
+ }
+    @Override
+    public void close(){
+        try{
+            if(writer != null){
+                log("FileLogger is closing" + getCurrentTime());
+                writer.close();
+                writer = null;
+                
+            }
+        }catch(Exception e){
+            System.out.println("Error the FileLogger is closing" + e.getMessage());
+            
+            
         }
     }
+    private String getCurrentTime(){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH : mm :ss");
+        return formatter.format(new Date ());
+        
+    }
+    //method to get recent logs //
+    
+    public List<String> getRecentLogs (int count){
+        if(count <= 0 || logHistory.isEmpty()){
+            return new ArrayList<>();
+            
+        }
+        
+    if (count >= logHistory.size()){
+       return new ArrayList<>(logHistory);
+         
+    }
+     return new ArrayList<>(logHistory.subList(logHistory.size() - count, logHistory.size()));
+    }     
+    
+    // method to clear log history(clears memory but keeps files)
+   public void clearHistory(){
+       logHistory.clear();
+       log("Log history is cleared" + getCurrentTime());
+       
+  
+    }   
+   //checking if logger is active//
+   public boolean isActive(){
+       return writer != null;
+       
+   }
+       
 }
