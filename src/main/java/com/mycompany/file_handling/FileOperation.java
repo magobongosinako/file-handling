@@ -1,3 +1,4 @@
+package com.mycompany.file_handling;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -7,9 +8,8 @@
  *
  * @author MAGOBONGO SINAKO
  */
-package com.mycompany.file_handling;
+
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -18,7 +18,7 @@ import java.util.Date;
 
 
 public class FileOperation {
-    
+     
     public enum ActionType {
         MOVE, DELETE, CREATE_FOLDER, RENAME
         
@@ -108,5 +108,5 @@ public class FileOperation {
     public String getNewPath(){ return newPath;}
     public boolean isExecuted(){ return executed; }
     public String getTimestamp(){ return timestamp; }
-    
+   
 }
