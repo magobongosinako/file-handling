@@ -3,7 +3,7 @@ package com.mycompany.file_handling;
 import java.text.SimpleDateFormat;
 import java.io.*;
 import java.util.*;
-import javax.swing.JTextArea;
+
 
 public class FileLogger implements AutoCloseable {
  private String logFilePath;
