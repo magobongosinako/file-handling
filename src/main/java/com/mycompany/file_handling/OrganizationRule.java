@@ -1,3 +1,4 @@
+package com.mycompany.file_handling;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -7,108 +8,149 @@
  *
  * @author MAGOBONGO SINAKO
  */
-package com.mycompany.file_handling;
 import java.io.File;
 import java.util.*;
 
 public class OrganizationRule {
     
-    private String fileType;
+    public enum RuleType {
+        EXTENSION, NAME_CONTAINS, SIZE
+    }
+    
+    private String fileType; // For EXTENSION
+    private String keyword;  // For NAME_CONTAINS
+    private long minSize;    // For SIZE
+    private long maxSize;    // For SIZE
     private String category;
+    private RuleType ruleType;
     
-    // constructor//
-    
-    public OrganizationRule(String fileType, String category){
-        
+    // Constructor for EXTENSION rule
+    public OrganizationRule(String fileType, String category) {
+        this.ruleType = RuleType.EXTENSION;
         setFileType(fileType);
         setCategory(category);
-        
-        
     }
     
-    public String getFileType(){
-        return fileType;
-        
+    // Factory methods for different rule types
+    public static OrganizationRule byExtension(String fileType, String category) {
+        return new OrganizationRule(fileType, category);
     }
-    public void setFileType(String fileType){
-        if (fileType != null && !fileType.trim().isEmpty()){
+    
+    public static OrganizationRule byNameContains(String keyword, String category) {
+        OrganizationRule rule = new OrganizationRule("", category);
+        rule.ruleType = RuleType.NAME_CONTAINS;
+        rule.keyword = keyword != null ? keyword.trim().toLowerCase() : "";
+        return rule;
+    }
+    
+    public static OrganizationRule bySize(long minSize, long maxSize, String category) {
+        OrganizationRule rule = new OrganizationRule("", category);
+        rule.ruleType = RuleType.SIZE;
+        rule.minSize = minSize;
+        rule.maxSize = maxSize;
+        return rule;
+    }
+    
+    public String getFileType() {
+        return fileType;
+    }
+    
+    public void setFileType(String fileType) {
+        if (fileType != null && !fileType.trim().isEmpty()) {
             String processedType = fileType.trim().toLowerCase();
-            if (!processedType.startsWith(".")){
+            if (!processedType.startsWith(".")) {
                 processedType = "." + processedType;
-                
-                
             }
             this.fileType = processedType;
-        }else {
+        } else {
             this.fileType = "";
-            
         }
     }
-    public String getCategory(){
+    
+    public String getCategory() {
         return category;
-        
     }
-    public void setCategory(String category){
-        if (category != null && !category.trim().isEmpty()){
+    
+    public void setCategory(String category) {
+        if (category != null && !category.trim().isEmpty()) {
             this.category = category.trim();
         } else {
             this.category = "unknown";
-            
         }
     }
-    //checking if the rule matches the given file//
-    public boolean matches (File file){
-        if (file == null || !file.exists() || file.isDirectory()){
-            return false;
-            
-        }
-        String filename = file.getName().toLowerCase();
-        return filename.endsWith(fileType);
-        
-    }
-    //checking if the rule matches file extension//
     
-    public boolean matches (String fileExtension){
-        if (fileExtension == null || fileExtension.isEmpty()){
-            return false;
-            
+    public String getRuleName() {
+        switch (ruleType) {
+            case EXTENSION:
+                return "Extension: " + fileType + " -> " + category;
+            case NAME_CONTAINS:
+                return "Name Contains: " + keyword + " -> " + category;
+            case SIZE:
+                return "Size: " + minSize + "-" + maxSize + " bytes -> " + category;
+            default:
+                return "Unknown Rule";
         }
-        //Ensuring the extension has a dot for comparing//
-        
-        String extensionTocheck = fileExtension.toLowerCase();
-        String ruleTypeTocheck = this.fileType.toLowerCase();
-        
-        if (!extensionTocheck.startsWith(".")){
-            extensionTocheck = "." + extensionTocheck;
-            
-        }
-        return extensionTocheck.equals(ruleTypeTocheck);
-           
     }
-    //getting the target folder for the file based on the rule//
-    public String getTargetFolder(){
+    
+    public boolean matches(File file) {
+        if (file == null || !file.exists() || file.isDirectory()) {
+            return false;
+        }
+        
+        switch (ruleType) {
+            case EXTENSION:
+                String filename = file.getName().toLowerCase();
+                return filename.endsWith(fileType);
+            case NAME_CONTAINS:
+                return file.getName().toLowerCase().contains(keyword);
+            case SIZE:
+                long size = file.length();
+                return size >= minSize && size <= maxSize;
+            default:
+                return false;
+        }
+    }
+    
+    public boolean matches(String fileExtension) {
+        if (ruleType != RuleType.EXTENSION || fileExtension == null || fileExtension.isEmpty()) {
+            return false;
+        }
+        
+        String extensionToCheck = fileExtension.toLowerCase();
+        String ruleTypeToCheck = this.fileType.toLowerCase();
+        
+        if (!extensionToCheck.startsWith(".")) {
+            extensionToCheck = "." + extensionToCheck;
+        }
+        return extensionToCheck.equals(ruleTypeToCheck);
+    }
+    
+    public String getTargetFolder() {
         return category;
-        
-    }
-    // Use toString method for displaying//
-    
-    public String toString(){
-        return "OrganizationRule{fileType='"   + fileType + "', category='" + category + "'}";
-        
     }
     
-    public boolean equals(Object obj){
+    @Override
+    public String toString() {
+        return getRuleName();
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null || getClass() != obj.getClass())
-        return false;
+            return false;
         OrganizationRule that = (OrganizationRule) obj;
-        return Objects.equals(fileType, that.fileType) && Objects.equals(category, that.category);
-        
-        
-    } 
-    public int hashCode(){
-        return Objects.hash(fileType,category);
-        
+        return ruleType == that.ruleType &&
+               Objects.equals(fileType, that.fileType) &&
+               Objects.equals(keyword, that.keyword) &&
+               minSize == that.minSize &&
+               maxSize == that.maxSize &&
+               Objects.equals(category, that.category);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(ruleType, fileType, keyword, minSize, maxSize, category);
     }
 }
